@@ -15,6 +15,7 @@ class User extends Component {
 
     componentDidMount() {
         this.props.getUserDetails(this.props.match.params.login);
+        this.props.getRepos(this.props.match.params.login);
     }
 
     render() {
@@ -110,7 +111,7 @@ class User extends Component {
                         Public Gists: {public_gists}
                     </div>
                 </div>
-                <Repos user={user} getRepos={getRepos} repos={repos} />
+                <Repos repos={repos} />
             </>
         );
     }

@@ -1,21 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import RepoItem from './RepoItem';
 
-class Repos extends Component {
-    static propTypes = {
-        user: PropTypes.object.isRequired,
-        getRepos: PropTypes.func.isRequired,
-        repos: PropTypes.array.isRequired,
-    };
+const Repos = ({ repos }) => {
+    return repos.map((repo) => <RepoItem key={repo.id} repo={repo} />);
+};
 
-    componentDidMount() {
-        this.props.getRepos(this.props.user.name);
-    }
-
-    render() {
-        console.log(this.props.repos);
-        return <div></div>;
-    }
-}
+Repos.propTypes = {
+    repos: PropTypes.array.isRequired,
+};
 
 export default Repos;
