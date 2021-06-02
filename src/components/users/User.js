@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import Spinner from '../layout/Spinner';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Repos from '../repos/Repos';
+import GithubContext from '../../context/github/githubContext';
 
-const User = ({ user, loading, repos, getRepos, getUserDetails, match }) => {
+const User = ({ match }) => {
+    
+    const githubContext = useContext(GithubContext);
+    const { user, loading, getUserDetails, repos, getRepos } = githubContext;
+    
     useEffect(() => {
         getUserDetails(match.params.login);
         getRepos(match.params.login);
@@ -27,7 +31,7 @@ const User = ({ user, loading, repos, getRepos, getUserDetails, match }) => {
     } = user;
 
     return (
-        <Spinner>
+        <>
             {loading && <Spinner />}
             <Link to='/' className='btn btn-light'>
                 Back to search
@@ -101,16 +105,8 @@ const User = ({ user, loading, repos, getRepos, getUserDetails, match }) => {
                 </div>
             </div>
             <Repos repos={repos} />
-        </Spinner>
+        </>
     );
-};
-
-User.propTypes = {
-    getUserDetails: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    loading: PropTypes.bool.isRequired,
-    getRepos: PropTypes.func.isRequired,
-    repos: PropTypes.array.isRequired,
 };
 
 const avatarStyle = {
